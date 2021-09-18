@@ -17,21 +17,35 @@ Description: Header for CalcList.cpp to reference.
 
 class CalcList : public CalcListInterface { //create a class CalcList, under parent class CalcListInterface 
 public: //public = access specifier, can access
+    int numOperations=0; //variable keeps trak of the number of operations
+
     CalcList(); //empty list constructor 
     ~CalcList(); //destructor - deallocate memory 
 
+    //overridden function from abstract parent class shown below
+    
     double total() const; //declaring a variable, total, that is const (cant be modified directly by the user)
     void newOperation(const FUNCTIONS func, const double operand); //create a new operation 
     void removeLastOperation();  //remove the last operation
-
     std::string toString(unsigned short precision) const; //variable precision declared as a string
+    
+
+    //adding Utility functions
+    void addNode(Calcnode* node, const double& value);  //adds a new node right before the trailer
+    void deleteNode(Calcnode* node);   //deletes the node that is before the trailer i.e the last one
+
+    bool checkEmpty() const;   //checks if the list is empty of not
+
 
 private: //private = access specifier, cannot access 
 
     struct Calcnode { //structure Calcnode to store the data 
-        double prevValue; //used to store the previous value 
-        double afterValue; //stores the value after operations 
-        double operandUsed; //used to store current value before operations 
+        double prevValue=0.0; //used to store the previous value 
+
+        double afterValue=0.0; //stores the value after operations 
+
+        double operandUsed=0.0; //used to store current value before operations 
+
         FUNCTIONS operation; //declare operations, which will be used to reference different operations (+, -, *. / )
         Calcnode* prev = nullptr; //pointer for the previous value, initialized (nullptr = 0 as and address)
         Calcnode* next = nullptr; //pointer to the next value, intialized 
