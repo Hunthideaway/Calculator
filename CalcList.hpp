@@ -16,8 +16,12 @@ Description: Header for CalcList.cpp to reference.
 #include <iomanip> //header that is used to manipulate the output
 
 class CalcList : public CalcListInterface { //create a class CalcList, under parent class CalcListInterface 
+    
+    
 public: //public = access specifier, can access
-    int numOperations=0; //variable keeps trak of the number of operations
+
+
+    int numOperations=0; //variable keeps track of the number of operations
 
     CalcList(); //empty list constructor 
     ~CalcList(); //destructor - deallocate memory 
@@ -34,7 +38,7 @@ public: //public = access specifier, can access
     void addNode(Calcnode* node, const double& value);  //adds a new node right before the trailer
     void deleteNode(Calcnode* node);   //deletes the node that is before the trailer i.e the last one
 
-    bool checkEmpty() const;   //checks if the list is empty of not
+    bool checkEmpty() const;   //checks if the list is empty or not
 
 
 private: //private = access specifier, cannot access 
@@ -47,13 +51,13 @@ private: //private = access specifier, cannot access
         double operandUsed=0.0; //used to store current value before operations 
 
         FUNCTIONS operation; //declare operations, which will be used to reference different operations (+, -, *. / )
-        Calcnode* prev = nullptr; //pointer for the previous value, initialized (nullptr = 0 as and address)
+        Calcnode* prev = nullptr; //pointer for the previous value, initialized (nullptr = 0 as an address)
         Calcnode* next = nullptr; //pointer to the next value, intialized 
     };
 
-    double currentTotal; //declare value for total value
-    Calcnode* head; //pointer for the head value
-    Calcnode* trailer; //pointer for the trailer value  
+    double currentTotal=0.0; //declare value for total value
+    Calcnode* header; //pointer for the head node
+    Calcnode* trailer; //pointer for the trailer node 
 
 };
 
