@@ -33,3 +33,29 @@ bool CalcList:: checkEmpty() const {
     }
     return false;  //returns true if header and trailer pointing to each other, which means list is empty OR else returns false
 }
+
+//Utility Functions
+void CalcList::addNode(Calcnode* node, const double& value){
+        numOperations++;                                        //everytime a operation is done the counter is incremented
+}
+
+void CalcList::deleteNode(Calcnode* node){
+        numOperations--;                        //everytime a operation is removed the counter is incremented
+}
+
+
+double CalcList::total() const{
+   
+}
+
+void CalcList::newOperation(const FUNCTIONS func, const double operand){
+
+}
+
+void CalcList::removeLastOperation(){
+
+}
+
+std::string CalcList:: toString(unsigned short precision) const{
+
+}
