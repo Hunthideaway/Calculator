@@ -1,65 +1,53 @@
 /*
-Author: Randall Hunt 
+Author: Randall Hunt, Raed Seraj
 Program: CalcList.hpp 
 Description: Header for CalcList.cpp to reference.
 */
 
-#ifndef CALCLIST_H //check if it has been previously defined 
+#ifndef CALCLIST_H //check if it has been previously defined
 
-#define CALCLIST_H //define 
+#define CALCLIST_H //define
 
-//headers 
-#include "CalcListInterface.hpp" //reference to header file 
-#include <iostream> //basic input and output functions 
-#include <stdexcept> //used by the library and porgram to report common errors 
-#include <sstream> //enables interoperation between stream buffers and string objects
-#include <iomanip> //header that is used to manipulate the output
+//headers
+#include "CalcListInterface.hpp" //reference to header file
+#include <iostream>              //basic input and output functions
+#include <stdexcept>             //used by the library and porgram to report common errors
+#include <sstream>               //enables interoperation between stream buffers and string objects
+#include <iomanip>               //header that is used to manipulate the output
 
-class CalcList : public CalcListInterface { //create a class CalcList, under parent class CalcListInterface 
-    
-    
-public: //public = access specifier, can access
+class CalcList : public CalcListInterface
+{ //create a class CalcList, under parent class CalcListInterface
 
+public:                    //public = access specifier, can access
+    int numOperations = 0; //variable keeps track of the number of operations
 
-    int numOperations=0; //variable keeps track of the number of operations
-
-    CalcList(); //empty list constructor 
-    ~CalcList(); //destructor - deallocate memory 
+    CalcList();  //empty list constructor
+    ~CalcList(); //destructor - deallocate memory
 
     //overridden function from abstract parent class shown below
-    
-    double total() const; //declaring a variable, total, that is const (cant be modified directly by the user)
-    void newOperation(const FUNCTIONS func, const double operand); //create a new operation 
-    void removeLastOperation();  //remove the last operation
-    std::string toString(unsigned short precision) const; //variable precision declared as a string
-    
 
-    //adding Utility functions
-    void addNode(Calcnode* node, const double& value);  //adds a new node right before the trailer
-    void deleteNode(Calcnode* node);   //deletes the node that is before the trailer i.e the last one
+    double total() const;                                          //declaring a variable, total, that is const (cant be modified directly by the user)
+    void newOperation(const FUNCTIONS func, const double operand); //create a new operation
+    void removeLastOperation();                                    //remove the last operation
+    std::string toString(unsigned short precision) const;          //variable precision declared as a string
+    bool checkEmpty() const;                                       //checks if the list is empty or not
 
-    bool checkEmpty() const;   //checks if the list is empty or not
+private: //private = access specifier, cannot access
+    struct Calcnode
+    {                            //structure Calcnode to store the data
+        double previousValue = 0.0;  //used to store the previous value
+        double secondValue = 0.0; //stores the value after operations
+        double current = 0.0;    //used to store current value before operations
+        // double operation = ADDITION;
 
-
-private: //private = access specifier, cannot access 
-
-    struct Calcnode { //structure Calcnode to store the data 
-        double prevValue=0.0; //used to store the previous value 
-
-        double afterValue=0.0; //stores the value after operations 
-
-        double operandUsed=0.0; //used to store current value before operations 
-
-        FUNCTIONS operation; //declare operations, which will be used to reference different operations (+, -, *. / )
-        Calcnode* prev = nullptr; //pointer for the previous value, initialized (nullptr = 0 as an address)
-        Calcnode* next = nullptr; //pointer to the next value, intialized 
+        FUNCTIONS operation;      //declare operations, which will be used to reference different operations (+, -, *. / )
+        Calcnode *previous = nullptr; //pointer for the previous value, initialized (nullptr = 0 as an address)
+        Calcnode *next = nullptr; //pointer to the next value, intialized
     };
 
-    double currentTotal=0.0; //declare value for total value
-    Calcnode* header; //pointer for the head node
-    Calcnode* trailer; //pointer for the trailer node 
-
+    double currentTotal = 0.0; //declare value for total value
+    Calcnode *header;          //pointer for the head node
+    Calcnode *trailer;         //pointer for the trailer node
 };
 
-
-#endif //terminate 
+#endif //terminate
