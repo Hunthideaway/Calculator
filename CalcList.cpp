@@ -100,29 +100,29 @@ void CalcList::removeLastOperation(){
 
 std::string CalcList:: toString(unsigned short precision) const{
 
-    std::stringstream a; 
+    std::stringstream a; //declare the variable for the string 
 
-    a.precision(precision);
+    a.precision(precision); //
 
-    Calcnode* afterHeader = header->next; //pointer to the node before the trailer
+    Calcnode* afterHeader = header->next; //pointer to the node after the header a
 
-    while (afterHeader->previous != header ) { //as long as the node is not the header, do the following 
+    while (afterHeader->next != trailer ) { //as long as the node is not the header, do the following 
 
-        if(afterHeader->operation == ADDITION ) { 
+        if(afterHeader->operation == ADDITION ) { //if the users operation is addition, do the following 
             a << std::fixed << ":" << afterHeader->previousValue << "+" << afterHeader-> secondValue << std::endl;
         }
-        else if(afterHeader->operation ==SUBTRACTION) {
+        else if(afterHeader->operation ==SUBTRACTION) { //if the users operation is addition, do the following
             a<< std::fixed << ":" << afterHeader->previousValue << "-" << afterHeader->secondValue<<std::endl;
         }
-        else if(afterHeader->operation == MULTIPLICATION) { 
+        else if(afterHeader->operation == MULTIPLICATION) { //if the users operation is mitliplication do the following
             a<<std::fixed<<":"<<afterHeader->previousValue<<"*" <<afterHeader->secondValue<<std::endl; 
         }
-        else if(afterHeader->operation == DIVISION) {
+        else if(afterHeader->operation == DIVISION) { //if the users operation is division do the following
             a<<std::fixed<<":" << afterHeader->previousValue <<"/" << afterHeader->secondValue<<std::endl;
         }
 
-        afterHeader = afterHeader->previous; 
+        afterHeader = afterHeader->next; //after the first operation, move onto the next one
 
     }
-    return a.str();
+    return a.str(); //return the string
 }
