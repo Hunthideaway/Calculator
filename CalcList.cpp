@@ -104,24 +104,24 @@ std::string CalcList:: toString(unsigned short precision) const{
 
     a.precision(precision);
 
-    Calcnode* beforeTrailer = trailer->previous; //pointer to the node before the trailer
+    Calcnode* afterHeader = header->next; //pointer to the node before the trailer
 
-    while (beforeTrailer->previous != trailer ) { //as long as the node is not the header, do the following 
+    while (afterHeader->previous != header ) { //as long as the node is not the header, do the following 
 
-        if(beforeTrailer->operation == ADDITION ) { 
-            a << std::fixed << ":" << beforeTrailer->previousValue << "+" << beforeTrailer-> secondValue << std::endl;
+        if(afterHeader->operation == ADDITION ) { 
+            a << std::fixed << ":" << afterHeader->previousValue << "+" << afterHeader-> secondValue << std::endl;
         }
-        else if(beforeTrailer->operation ==SUBTRACTION) {
-            a<< std::fixed << ":" << beforeTrailer->previousValue << "-" << beforeTrailer->secondValue<<std::endl;
+        else if(afterHeader->operation ==SUBTRACTION) {
+            a<< std::fixed << ":" << afterHeader->previousValue << "-" << afterHeader->secondValue<<std::endl;
         }
-        else if(beforeTrailer->operation == MULTIPLICATION) { 
-            a<<std::fixed<<":"<<beforeTrailer->previousValue<<"*" <<beforeTrailer->secondValue<<std::endl; 
+        else if(afterHeader->operation == MULTIPLICATION) { 
+            a<<std::fixed<<":"<<afterHeader->previousValue<<"*" <<afterHeader->secondValue<<std::endl; 
         }
-        else if(beforeTrailer->operation == DIVISION) {
-            a<<std::fixed<<":" << beforeTrailer->previousValue <<"/" << beforeTrailer->secondValue<<std::endl;
+        else if(afterHeader->operation == DIVISION) {
+            a<<std::fixed<<":" << afterHeader->previousValue <<"/" << afterHeader->secondValue<<std::endl;
         }
 
-        beforeTrailer = beforeTrailer->previous; 
+        afterHeader = afterHeader->previous; 
 
     }
     return a.str();
