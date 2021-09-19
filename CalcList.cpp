@@ -100,4 +100,29 @@ void CalcList::removeLastOperation(){
 
 std::string CalcList:: toString(unsigned short precision) const{
 
+    std::stringstream a; 
+
+    a.precision(precision);
+
+    Calcnode* beforeTrailer = trailer->previous; //pointer to the node before the trailer
+
+    while (beforeTrailer->previous != trailer ) { //as long as the node is not the header, do the following 
+
+        if(beforeTrailer->operation == ADDITION ) { 
+            a << std::fixed << ":" << beforeTrailer->previousValue << "+" << beforeTrailer-> secondValue << std::endl;
+        }
+        else if(beforeTrailer->operation ==SUBTRACTION) {
+            a<< std::fixed << ":" << beforeTrailer->previousValue << "-" << beforeTrailer->secondValue<<std::endl;
+        }
+        else if(beforeTrailer->operation == MULTIPLICATION) { 
+            a<<std::fixed<<":"<<beforeTrailer->previousValue<<"*" <<beforeTrailer->secondValue<<std::endl; 
+        }
+        else if(beforeTrailer->operation == DIVISION) {
+            a<<std::fixed<<":" << beforeTrailer->previousValue <<"/" << beforeTrailer->secondValue<<std::endl;
+        }
+
+        beforeTrailer = beforeTrailer->previous; 
+
+    }
+    return a.str();
 }
