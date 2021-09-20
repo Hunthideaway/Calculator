@@ -19,8 +19,6 @@ class CalcList : public CalcListInterface
 { //create a class CalcList, under parent class CalcListInterface
 
 public:                    //public = access specifier, can access
-    int numOperations = 0; //variable keeps track of the number of operations
-
     CalcList();  //empty list constructor
     ~CalcList(); //destructor - deallocate memory
 
@@ -30,22 +28,21 @@ public:                    //public = access specifier, can access
     void newOperation(const FUNCTIONS func, const double operand); //create a new operation
     void removeLastOperation();                                    //remove the last operation
     std::string toString(unsigned short precision) const;          //variable precision declared as a string
-    bool checkEmpty() const;                                       //checks if the list is empty or not
+
 
 private: //private = access specifier, cannot access
     struct Calcnode
     {                            //structure Calcnode to store the data
-        double previousValue = 0.0;  //used to store the previous value
-        double secondValue = 0.0; //stores the value after operations
-        double current = 0.0;    //used to store current value before operations
-        double operation = ADDITION;
+        double previousValue;  //used to store the previous value
+        double secondValue; //stores the value after operations
+        double current;   //used to store current value before operations
 
         FUNCTIONS operation;      //declare operations, which will be used to reference different operations (+, -, *. / )
         Calcnode *previous = nullptr; //pointer for the previous value, initialized (nullptr = 0 as an address)
         Calcnode *next = nullptr; //pointer to the next value, intialized
     };
 
-    double currentTotal = 0.0; //declare value for total value
+    double currentTotal; //declare value for total value
     Calcnode *header;          //pointer for the head node
     Calcnode *trailer;         //pointer for the trailer node
 };
