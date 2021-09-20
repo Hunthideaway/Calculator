@@ -1,51 +1,44 @@
+/*
+Authors: Raed Seraj, Randall Hunt 
+Program: Calculator
+Driver: Randall Hunt 
+Navigator: Raed Seraj 
+*/
 #include "CalcList.hpp"
 
-//constructor implementation
-
-CalcList::CalcList()
+CalcList::CalcList()//constructor implementation
 {
-
     Calcnode* def = new Calcnode; //creating default node 
 
-    //creating header and trailer nodes
-    header = new Calcnode;
-    trailer = new Calcnode;
-    // set defaults
-    def->previousValue = 0;
-    def->secondValue = 0;
-    def->current = 0;
-    def->operation = ADDITION;
+    header = new Calcnode; //initialize the header 
+    trailer = new Calcnode; //initialize the trailer 
+    def->previousValue = 0; //declare the default value 
+    def->secondValue = 0; //declare the default value 
+    def->current = 0; //declare the default value 
+    def->operation = ADDITION; //declare the default value 
+    currentTotal = 0; //initialize the currentTotal by setting it to 0 
 
     // connect head and trailer to default node
     def->previous = header;
     def->next = trailer;
     header->next = def;
     trailer->previous = def;
-
-    // initialize total to zero
-    currentTotal = 0;
 }
 
-//destructor implementation
-
-CalcList::~CalcList()
+CalcList::~CalcList() //destructor implementation
 {
-
-    Calcnode* node = header;
-    Calcnode* temp;
-
-    while (node != trailer)
+    Calcnode* node = header; //start the node at the header 
+    Calcnode* temp; //create a temperary variable to store the variable before deleting 
+    while (node != trailer) //loop that continues while the node doesnt equal the trailer 
     {
-        temp = node->next;
-        delete node;
-        node = temp;
+        temp = node->next;//the variable temp stores the value of the next node 
+        delete node; //we delete the node 
+        node = temp; //the node is set to the next value 
     }
-
-    //lastly delete trailer to realease all memory
-    delete trailer;
+    delete trailer; //once we have deleted all other values, delete the trailer 
 }
 
-double CalcList::total() const
+double CalcList::total() const //total 
 {
     return currentTotal; //returns the current total
 }
@@ -97,7 +90,6 @@ void CalcList::newOperation(const FUNCTIONS func, const double operand)
 
 void CalcList::removeLastOperation()
 {
-
     Calcnode* none = header;                          //variable that will be used if there is no operation
     Calcnode* previous = trailer->previous->previous; //this pointer references the node before the one that will be deleted
     Calcnode* nodeDelete = previous->next;            //this pointer stores the node that will be deleted
@@ -116,31 +108,25 @@ void CalcList::removeLastOperation()
 
 std::string CalcList::toString(unsigned short precision) const
 {
-
     int count = 0; // number of nodes (doesn't count head, trailer or default node)
-
-    // count number of nodes
-    Calcnode* countNodes = header->next;
-    while (countNodes->next != trailer)
+    Calcnode* countNodes = header->next; //this is used to count the number of nodes 
+    while (countNodes->next != trailer) //loop that continues until it reaches the trailer
     {
-
-        countNodes = countNodes->next;
-        count++;
+        countNodes = countNodes->next; //points to the next node 
+        count++; //increment 
     }
 
     std::stringstream a; //declare the variable for the string
-
-    a.precision(precision); //
-
+    a.precision(precision); //string precision, setting the number of decimals 
     Calcnode* beforeEnd = trailer->previous; //pointer to the node before the trailer
 
     while (beforeEnd->previous != header)
     { //as long as the node is not the header, do the following
-
+    //print the values for the nodes 
         if (beforeEnd->operation == ADDITION)
         { //if the users operation is addition, do the following
             a << count << std::fixed << ": " << beforeEnd->previousValue << "+" << beforeEnd->current << "=" << beforeEnd->secondValue << std::endl;
-        }
+        }//
         else if (beforeEnd->operation == SUBTRACTION)
         { //if the users operation is addition, do the following
             a << count << std::fixed << ": " << beforeEnd->previousValue << "-" << beforeEnd->current << "=" << beforeEnd->secondValue << std::endl;
@@ -154,7 +140,7 @@ std::string CalcList::toString(unsigned short precision) const
             a << count << std::fixed << ": " << beforeEnd->previousValue << "/" << beforeEnd->current << "=" << beforeEnd->secondValue << std::endl;
         }
 
-        count--;
+        count--; //decrement 
         beforeEnd = beforeEnd->previous; //after the first operation, move onto the next one
     }
     return a.str(); //return the string

@@ -1,7 +1,8 @@
 /*
 Author: Randall Hunt, Raed Seraj
 Program: CalcList.hpp 
-Description: Header for CalcList.cpp to reference.
+Driver: Randall Hunt 
+Navigator: Raed Seraj 
 */
 
 #ifndef CALCLIST_H //check if it has been previously defined
@@ -21,9 +22,6 @@ class CalcList : public CalcListInterface
 public:                    //public = access specifier, can access
     CalcList();  //empty list constructor
     ~CalcList(); //destructor - deallocate memory
-
-    //overridden function from abstract parent class shown below
-
     double total() const;                                          //declaring a variable, total, that is const (cant be modified directly by the user)
     void newOperation(const FUNCTIONS func, const double operand); //create a new operation
     void removeLastOperation();                                    //remove the last operation
@@ -36,7 +34,6 @@ private: //private = access specifier, cannot access
         double previousValue;  //used to store the previous value
         double secondValue; //stores the value after operations
         double current;   //used to store current value before operations
-
         FUNCTIONS operation;      //declare operations, which will be used to reference different operations (+, -, *. / )
         Calcnode *previous = nullptr; //pointer for the previous value, initialized (nullptr = 0 as an address)
         Calcnode *next = nullptr; //pointer to the next value, intialized
